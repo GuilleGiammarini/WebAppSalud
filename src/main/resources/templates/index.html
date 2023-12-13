@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        lang="en"
+>
+<head th:replace="layout/head :: head"></head>
+
+<body>
+<div>
+    <nav th:replace="layout/navbar :: navbar"></nav>
+
+    <div th:replace="/layout/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+    
+    <!--Carrousel-->
+        <section th:replace="/layout/carrousel :: section"></section>
+
+</div>
+
+<section class="blog mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 blog-img">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h1 class="fw-bolder">Historiales completos</h1>
+                <p>Tener historias clínicas completas proporciona varias ventajas significativas en el ámbito de la atención médica.
+                    Aquí tendras continuidad y coordinación de cuidados, toma de deciciones informadas, prevención de errores médicos,
+                    mejora en eficiencia y productividad, facilita la comunicación entre profesionales de la salud dentro de las normativas
+                    y legalidades pertinentes.</p>
+                
+                <a class="btn btn-outline-warning text-white banner-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ver más</a>
+
+
+    <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Historias Clinicas</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Con WebSalud 2.0 tendrás acceso a todos los datos de tu historial.
+                                    Podrás consultar las fechas de tus visitas, medicamentos recetados, observaciones
+                                    clínicas y mucho más</p>
+                            </div>
+                            <div class="modal-footer">
+                                <p>Profesionales en todo el país</p>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Volver</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer th:replace="layout/footer :: footer"></footer>
+
+<!-- Scripts de Bootstrap -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+
+</body>
+</html>

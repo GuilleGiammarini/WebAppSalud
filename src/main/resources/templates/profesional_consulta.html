@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        lang="en"
+>
+<head th:replace="layout/head :: head"></head>
+
+<body>
+<nav th:replace="layout/navbar :: navbar"></nav>
+
+
+<div th:replace="/layout/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+<div class="container mt-5">
+    <div class="card shadow p-5">
+
+
+        <div class="card-header">
+            <h2 class="brand">Ficha Médica</h2>
+        </div>
+
+        <div class="card-body">
+
+            <form th:action="@{/consulta/crear/__${paciente.id}__}" method="POST">
+                <label>
+                    <input hidden th:value="${paciente.id}" name="id">
+                </label>
+                <label>
+                    <input hidden th:value="${turno.id}" name="idTurno">
+                </label>
+                <div>
+                    <h3>Paciente</h3>
+                    <div class="form-label">
+                        <p>Nombre: <span th:text="${paciente.nombre}"></span></p>
+                        <p>Apellido: <span th:text="${paciente.apellido}"></span></p>
+                        <p>Dni: <span th:text="${paciente.DNI}"></span></p>
+                        <p>Fecha de nacimiento: <span th:text="${paciente.fechaDeNacimiento}"></span></p>
+                    </div>
+                </div>
+                <div class="obra-social">
+                    <h3>Obra Social</h3>
+                    <div class="col-md-6">
+                        <label for="obraSocial">Nombre: </label>
+                        <input th:value="${paciente.fichaMedica.obraSocial}" class="form-control" type="text" id="obraSocial" name="obraSocial" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="afiliado">Numero de afiliado: </label>
+                        <input th:value="${paciente.fichaMedica.numeroAfiliado}" class="form-control" type="text" id="afiliado" name="afiliado" required>
+                    </div>
+                </div>
+
+                <div class="datos-clinicos">
+                    <h2>Datos clinicos</h2>
+                <div class="campo">
+                    <label for="gruposanguineo">Grupo Sanguíneo: </label>
+                    <input th:value="${paciente.fichaMedica.grupoSanguineo}" class="form-control" type="text" id="grupoSanguineo" name="grupoSanguineo" required>
+                    <label for="altura">Altura: </label>
+                    <input class="form-control" type="text" id="altura" name="altura" required>
+                    <label for="peso">Peso: </label>
+                    <input class="form-control" type="text" id="peso" name="peso" required>
+                </div>
+                </div>
+
+                <div class="datos-consulta">
+                    <h2>Consulta</h2>
+                    <div class="campo">
+                        <label for="motivo">Motivo de la consulta:</label>
+                        <input class="form-control" type="text" id="motivo" name="motivoConsulta">
+                    </div>
+                    <div class="campo">
+                        <label for="antecedentes">Antecedentes médicos:</label>
+                        <textarea th:value="${paciente.fichaMedica.antecedentes}" class="form-control" id="antecedentes" name="antecedentes" required></textarea>
+                    </div>
+                </div>
+                <div class="campo">
+                    <div class="campo">
+                        <label for="observaciones">Observaciones:</label>
+                        <textarea class="form-control" id="observaciones" name="observaciones" required></textarea>
+                    </div>
+                    <div class="campo">
+                        <label for="diagnostico">Diagnóstico:</label>
+                        <input class="form-control" type="text" id="diagnostico" name="diagnostico" required>
+                    </div>
+                    <div class="campo">
+                        <label for="tratamiento">Tratamiento:</label>
+                        <textarea class="form-control" id="tratamiento" name="tratamiento" required></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary m-3" type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="layout/footer :: footer"></footer>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>

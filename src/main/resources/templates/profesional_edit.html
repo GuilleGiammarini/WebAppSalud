@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        lang="en"
+>
+<head th:replace="layout/head :: head"></head>
+
+<body>
+<nav th:replace="layout/navbar :: navbar"></nav>
+
+<div th:replace="/layout/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+
+<div class="card-header">
+    <h1>
+        Datos personales
+    </h1>
+    <p>Recuerda mantener tus datos actualizados!</p>
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+        <form th:action="@{/profesional/editar/__${session.usuariosession.id}__}" method="POST"
+              enctype="multipart/form-data" class="row g-3">
+
+
+            <input hidden th:value="${session.usuariosession.id}" name="id">
+            <div class="col-md-6">
+                <label for="nombre">Nombre</label>
+                <input th:value="${profesional != null ? profesional.nombre : session.usuariosession.nombre}"
+                       type="text" id="nombre" class="form-control" name="nombre">
+            </div>
+            <div class="col-md-6">
+                <label for="apellido">Apellido</label><br>
+                <input th:value="${profesional != null ? profesional.apellido : session.usuariosession.apellido}"
+                       type="text" id="apellido" class="form-control" name="apellido">
+            </div>
+            <div class="col-md-6">
+                <label for="dni">Número de DNI</label><br>
+                <input type="text" class="form-control" id="dni" name="DNI"
+                       th:value="${profesional != null ? profesional.DNI : session.usuariosession.DNI}">
+            </div>
+            <div class="col-md-6">
+                <label>Fecha de Nacimiento</label><br>
+                <input type="date" class="form-control" name="fechaDeNacimiento"
+                       th:value="${profesional != null ? #dates.format(profesional.fechaDeNacimiento, 'yyyy-MM-dd') : #dates.format(session.usuariosession.fechaDeNacimiento, 'yyyy-MM-dd')}">
+            </div>
+            <div class="col-md-6">
+                <label>Correo electrónico</label>
+                <div>
+                    <input type="email" class="form-control" name="email"
+                           th:value="${profesional != null ? profesional.email : session.usuariosession.email}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Nombre de usuario</label>
+                <div>
+                    <input type="text" class="form-control" name="nombreUsuario"
+                           th:value="${profesional != null ? profesional.nombreUsuario : session.usuariosession.nombreUsuario}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Contraseña</label><br>
+                <div>
+                    <input type="password" name="password" class="form-control" placeholder="Ingrese su contraseña">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Reingresar contraseña</label><br>
+                <div>
+                    <input type="password" name="password2" class="form-control"
+                           placeholder="Ingrese nuevamente su contraseña">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="matricula">Matrícula</label><br>
+                <input type="text" id="matricula" class="form-control" name="matricula"
+                       th:value="${profesional != null ? profesional.matricula : session.usuariosession.matricula}">
+            </div>
+
+
+            <div class="col-md-6">
+                <label for="provincias">Provincia: </label>
+                <select name="provincias" id="provincias" required>
+                    <option
+                            th:selected="${profesional != null ? profesional.provincias : session.usuariosession.provincias}"
+                            th:text="${profesional != null ? profesional.provincias : session.usuariosession.provincias}"
+                            th:value="${profesional != null ? profesional.provincias : session.usuariosession.provincias}">
+                    </option>
+                    <option
+                            th:each="provincia : ${provincias}"
+                            th:value="${provincia}"
+                            th:text="${provincia}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="localidad">Localidad: </label><br>
+                <input th:value="${profesional != null ? profesional.localidad : session.usuariosession.localidad}"
+                       type="text" id="localidad" name="localidad" class="form-control"
+                       placeholder="Ingrese localidad" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="direccion">Dirección: </label>
+                <input th:value="${profesional != null ? profesional.direccion : session.usuariosession.direccion}"
+                       type="text" id="direccion" name="direccion" class="form-control"
+                       placeholder="Ej: Calle Necochea 1232 3-A" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="precioConsulta">Precio de la consulta: </label>
+                <input th:value="${profesional != null ? profesional.precioConsulta : session.usuariosession.precioConsulta}"
+                       type="number" id="precioConsulta" name="precioConsulta" class="form-control"
+                       placeholder="Ingrese el valor de la consulta" required>
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="especialidad">Especialidad médica:</label><br>
+                <select name="especialidad" id="especialidad" required>
+                    <option
+                            th:selected="${profesional != null ? profesional.especialidad : session.usuariosession.especialidad}"
+                            th:text="${profesional != null ? profesional.especialidad : session.usuariosession.especialidad}"
+                            th:value="${profesional != null ? profesional.especialidad : session.usuariosession.especialidad}"></option>
+                    <option th:each="especialidad : ${especialidades}"
+                            th:value="${especialidad}"
+                            th:text="${especialidad}">
+                    </option>
+                </select>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <img th:if="${session.usuariosession.imagen != null}"
+                     style="height: 100px;width: 100px; border-radius: 10px; object-fit:cover"
+                     class="logo"
+                     th:src="@{/imagen/perfil/__${session.usuariosession.id}__}"
+                />
+                <img th:if="${session.usuariosession.imagen == null}" style="max-height: 100px; border-radius: 10px"
+                     class="logo" th:src="@{/images/noImage.webp}">
+
+                <label for="imagen">Foto de perfil</label>
+
+                <input type="file" id="imagen" name="archivo" class="form-control">
+
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<footer th:replace="layout/footer :: footer"></footer>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>

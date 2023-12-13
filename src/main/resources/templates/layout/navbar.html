@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+
+        <div class="brand">
+            <i class="fa fa-heart-circle-check fa-2xl" style="color: #005eff"></i>
+            <a class="navbar-brand" href="/">WebSalud 2.0</a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- INGRESO PACIENTE -->
+                <li sec:authorize="hasAnyRole('USER','PACIENTE')" class="nav-item dropdown"
+                    th:if="${session.usuariosession != null}">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Mi cuenta
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/paciente/citas}">Mis Citas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/paciente/historia}">Historia clinica</a></li>
+                        <li><a class="dropdown-item" th:href="@{/paciente/editar}">Mis datos </a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" th:action="@{/portal/logout}">
+                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
+                                    Cerrar Sesión
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- INGRESO PROFESIONALES -->
+
+                <li sec:authorize="hasRole('PROFESIONAL')" class="nav-item dropdown"
+                    th:if="${session.usuariosession != null}">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Mi cuenta
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/profesional/citasProfesional}">Citas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/profesional/listaPacientes}">Pacientes</a></li>
+                        <li><a class="dropdown-item" th:href="@{/profesional/editar}">Mis datos</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" th:action="@{/portal/logout}">
+                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
+                                    Cerrar Sesión
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- INGRESO ADMINISTRADOR -->
+
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown"
+                    th:if="${session.usuariosession != null}">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Ingreso Admin
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/admin/dashboard}">Dashboard</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" th:action="@{/portal/logout}">
+                                <a href="#" onclick="this.parentNode.submit();" class="nav-link">
+                                    Cerrar Sesión
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex" th:if="${session.usuariosession == null}">
+                <li class="nav-item d-flex">
+                    <a th:href="@{/registrar}" class="nav-link">Registrate</a>
+                </li>
+                <li class="nav-item d-flex">
+                    <a th:href="@{/portal/login}" class="nav-link">Iniciar Sesion</a>
+                </li>
+            </ul>
+
+            <div class="nav-item nav p-5-link text-center text-muted" th:if="${session.usuariosession != null}">
+                <p class="navbar-brand" th:text="'Hola ' + ${session.usuariosession.nombre}"></p>
+                <img th:if="${session.usuariosession.imagen != null}"
+                     style="height: 40px;width: 40px; border-radius: 30px; object-fit:cover" class="logo"
+                     th:src="@{/imagen/perfil/__${session.usuariosession.id}__}"/>
+                <img th:if="${session.usuariosession.imagen == null}" style="height: 40px;width: 40px; border-radius: 30px; object-fit:cover"
+                     class="logo" th:src="@{/images/noImage.webp}">
+            </div>
+
+        </div>
+    </div>
+</nav>
+</body>
+</html>
+

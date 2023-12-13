@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&family=Sofia&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    /*font-family: "Raleway", sans-serif;*/
+
+}
+
+/*PALETA DE COLOR*/
+
+.color6 {
+    color: #005eff;
+}
+
+.star {
+    border: 1px #1a5dd1;
+
+}
+
+h1 a {
+    color: #005eff !important;
+}
+
+.brand {
+    color: #005eff !important;
+}
+
+.banner {
+    /*background-image: url(images/medicoyfamilia.jpg);*/
+    background-image: url(layout/carrousel.html);
+    width: 100%;
+    height: 100vh;
+    /*max-height: fit-content;*/
+    /*height: 500px;*/
+
+    /*background-position: center top;
+    background-size: cover;*/
+}
+
+.banner-heading {
+    color: #005eff !important;
+    margin-top: 300px;
+}
+
+.banner-btn {
+    background-color: #005eff !important;
+    border: none !important;
+    transition: 0.5s;
+    box-shadow: none !important;
+    margin-top: 20px;
+}
+
+.banner-btn:hover {
+    background-color: rgb(223, 228, 246) !important;
+    color: #005eff !important;
+    border: #005eff !important;
+    /*border: none !important;*/
+}
+
+.blog .blog-img {
+    background-image: url(images/familiaFeliz.jpeg);
+    width: 50%;
+    height: 30vh;
+    background-size: cover;
+    background-position: center;
+}
+
+/*
+.container a {
+    color: black !important;
+}*/
+
+.container nav {
+    color: black !important;
+
+}
+
+.banner h1 {
+    color: rgb(26, 24, 28) !important;
+}
+
+.banner p {
+    color: rgb(7, 5, 9) !important;
+}
+
+footer {
+    text-align: center;
+    background: #2980B9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #FFFFFF, #6DD5FA, #005eff); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FFFFFF, #6DD5FA, #005eff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+nav {
+    background: #2980B9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #005eff, #6DD5FA, #FFFFFF); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #005eff, #6DD5FA, #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.card-error {
+    background-image: url(images/medicoDetener.webp);
+    width: 50%;
+    height: 30vh;
+    margin-top: 100px;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.carousel-caption h1 {
+    font-size: 34px; /* Ajusta el tamaño del texto según tus preferencias */
+    color: #005eff; /* Cambia el color del texto a negro */
+}
+
+.carousel-caption h2 {
+    font-size: 24px; /* Ajusta el tamaño del texto según tus preferencias */
+    color: #005eff; /* Cambia el color del texto a negro */
+}

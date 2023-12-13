@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        lang="en"
+>
+<head th:replace="layout/head :: head"></head>
+
+<body>
+
+<nav th:replace="layout/navbar :: navbar"></nav>
+
+<div th:replace="/layout/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+<div class="card">
+    <div class="card-header">
+        <h1>Historia Clinica</h1>
+    </div>
+    <a class="btn btn-primary" th:href="@{/historia_clinica/ficha_medica}">Mi ficha medica</a>
+
+    <div class="card-body">
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Motivo</th>
+                <th>Diagnostico</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="consulta : ${consultas}">
+                <td th:text="${consulta.fechaDeConsulta}"></td>
+                <td th:text="${consulta.horaInicio}"></td>
+
+                <td th:text="${consulta.motivoConsulta}"></td>
+                <td th:text="${consulta.diagnostico}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<footer th:replace="layout/footer :: footer"></footer>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>

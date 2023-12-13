@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    lang="en"
+    >
+    <head th:replace="layout/head :: head"></head>
+
+    <body>
+        <nav th:replace="layout/navbar :: navbar"></nav>
+
+        <div th:replace="/layout/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+        <div class="container my-3">
+            <form class="d-inline"  th:action="@{/panelAdmin/usuarios}">
+
+                <div class="form-group mx-sm-3 mb-2 ">
+                    <input type="submit" class="btn btn-info mb-2 mr-1 d-inline" value="Buscar">
+                        <input type="text" name="palabra" class="form-control w-25 d-inline" id="palabra" th:value=${palabra} placeholder="Ingrese nombre a buscar">
+                            </div>
+
+                            </form>
+                            </div>
+   
+
+                            <div class="container m-5">
+
+                                <table class="table table-striped">
+                                    <thead class="align-items-center">
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Email</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody th:each="usuario : ${usuarios}">
+                                        <tr>
+                                            <td th:text="${usuario.nombre}"></td>
+                                            <td th:text="${usuario.email}"></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+
+                                <section class=" text-center container">
+                                    <div class="row mt-3">
+                                        <div>
+                                            <a th:href="@{/}" class="btn btn-secondary my-2">Volver</a>
+                                        </div>
+                                    </div>
+                                </section>
+
+                            </div>
+    
+
+                            <footer th:replace="layout/footer :: footer"></footer>
+
+
+                            <!-- JavaScript Bundle with Popper -->
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+                                    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+                            crossorigin="anonymous"></script>
+                            </body>
+
+                            </html>

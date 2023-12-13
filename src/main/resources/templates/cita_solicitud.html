@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        lang="en"
+>
+<head th:replace="layout/head :: head"></head>
+
+<body>
+<!--<header th:replace="layout/header :: header"></header>-->
+<nav th:replace="layout/navbar :: navbar"></nav>
+
+<div th:replace="/layout/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+<div class="container">
+
+
+    <h1 class="text-primary m-3">Solicitud de cita</h1>
+    <div class="card m-3 shadow" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4 card-header text-center vertical-separator">
+                <img th:if="${profesional.imagen != null}"
+                     style="height: 100px;width: 100px; border-radius: 10px; object-fit:cover"
+                     class="img-fluid rounded-start"
+                     th:src="@{/imagen/perfil/__${profesional.id}__}"/>
+                <img th:if="${profesional.imagen == null}" style="max-height: 100px; border-radius: 10px"
+                     class="img-fluid rounded-start" th:src="@{/images/noImage.webp}">
+                <div>
+                    <p class="mt-4">Valoracion: <span th:text="${profesional.valoracionProfesional}"></span></p>
+                    <i class="fa-solid fa-star star" style="color: #006cfa;"></i>
+                    <i class="fa-solid fa-star" style="color: #f6fa00;"></i>
+                    <i class="fa-solid fa-star" style="color: #f6fa00;"></i>
+                    <i class="fa-solid fa-star" style="color: #f6fa00;"></i>
+                    <i class="fa-solid fa-star" style="color: #f6fa00;"></i>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card-header text-center">
+                    <h5 th:text="${profesional.nombre} +' '+ ${profesional.apellido}"></h5>
+                    <p th:text="${profesional.especialidad}"></p>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"> Provincia: <span th:text="${profesional.provincias}"></span></h5>
+                    <p th:text="${profesional.localidad}" class="card-text"></p>
+                    <p th:text="${profesional.direccion}" class="card-text"></p>
+                    <p class="card-text"> Activo desde <span th:text="${profesional.fechaDeAlta}"></span><small
+                            class="text-body-secondary"></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Día</th>
+            <th>Hora</th>
+            <th class="text-center"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="turno, iterStat : ${turnos}" id="fila-${iterStat.index}">
+            <td th:if="${turno.disponibilidad}" th:text="${turno.fecha}"></td>
+            <td th:if="${turno.disponibilidad}" th:text="${turno.hora}"></td>
+            <td th:if="${turno.disponibilidad}">
+                <form th:action="@{/turno/agendar-turno}" method="post">
+                    <input type="hidden" name="turnoId" th:value="${turno.id}"/>
+                    <button data-bs-toggle="modal" data-bs-target="#motivoConsultaModal" type="submit"
+                            class="btn btn-primary btn-agendar">Agendar Cita
+                    </button>
+                </form>
+            </td>
+ 
+        </tr>
+
+        </tbody>
+    </table>
+
+
+</div>
+
+
+<footer th:replace="layout/footer :: footer"></footer>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('guardarMotivoConsulta').addEventListener('click', function () {
+            // Obtener el motivo de consulta desde el formulario del modal
+            var motivoConsulta = document.getElementById('motivoConsulta').value;
+
+            // Supongamos que ya tienes un objeto llamado consulta
+            var consulta = consulta || {}; // Asegúrate de que el objeto consulta esté definido
+
+            // Asignar el motivo de consulta a la propiedad motivoConsulta del objeto consulta
+            consulta.motivoConsulta = motivoConsulta;
+
+            // Aquí puedes hacer algo con el motivo de consulta, como enviarlo al servidor si es necesario
+
+            // Cerrar el modal
+            var motivoConsultaModal = new bootstrap.Modal(document.getElementById('motivoConsultaModal'));
+            motivoConsultaModal.hide();
+
+            // Redirigir a la página de agendar turno
+            window.location.href = '/paciente/citas';
+        });
+    });
+</script>
+
+</body>
+</html>

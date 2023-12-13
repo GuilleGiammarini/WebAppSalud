@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        lang="en"
+>
+<head th:replace="layout/head :: head"></head>
+
+<body>
+<nav th:replace="layout/navbar :: navbar"></nav>
+
+<div th:replace="/layout/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+<p class="text-end m-4">Click para simular profesional <span>
+                <a th:href="@{/util/profesionalRandom}"><i class="fa fa-database"></i></a></span></p>
+<p class="text-end m-4">Click para simular paciente <span>
+                <a th:href="@{/util/pacienteRandom}"><i class="fa fa-database"></i></a></span></p>
+
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="container m-2">
+            <table class="table table-hover">
+                <thead class="text-lg-start">
+                <tr>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col"> Editar</th>
+                    <th scope="col">Activo</th>
+
+                </tr>
+                </thead>
+
+                <tbody th:each="usuario : ${usuarios}">
+                <tr>
+                    <td>
+                        <img th:if="${usuario.imagen != null}"
+                             style="height: 100px;width: 100px; border-radius: 10px; object-fit:cover"
+                             class="logo"
+                             th:src="@{/imagen/perfil/__${usuario.id}__}"
+                        />
+                        <img th:if="${usuario.imagen == null}" style="max-height: 100px; border-radius: 10px"
+                             class="logo" th:src="@{/images/noImage.webp}">
+                    </td>
+                    <td th:text="${usuario.id}"></td>
+                    <td th:text="${usuario.rol}"></td>
+                    <td th:text="${usuario.nombre}"></td>
+                    <td th:text="${usuario.apellido}"></td>
+                    <td>
+                        <a th:href="@{/profesional/modificar/__${usuario.id}__}"><i class="fa fa-user-pen"
+                                                                                    style="color: #226cec;"></i></a>
+                    </td>
+
+
+                    <td>
+                        <a th:if="${usuario.activo}"><i class="fa-solid fa-eye"
+                                                        style="color: #226cec;"></i></a>
+                        <a th:if="${!usuario.activo}"><i class="fa-solid fa-eye-slash"
+                                                         style="color: darkred;"></i></a>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="text-center">
+                <a class="btn btn-outline-warning text-light banner-btn" href="/">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<footer th:replace="layout/footer :: footer"></footer>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        let select = document.getElementById("filtro");
+
+        select.addEventListener("change", function () {
+
+            document.getElementById("miFormulario").submit();
+        });
+    });
+</script>
+</html>

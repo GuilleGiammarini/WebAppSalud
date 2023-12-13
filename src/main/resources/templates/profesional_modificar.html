@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        lang="en"
+>
+<head th:replace="layout/head :: head"></head>
+
+<body>
+<nav th:replace="layout/navbar :: navbar"></nav>
+
+<div th:replace="/layout/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+<div class="card">
+    <div class="card-title m-3">
+        <h1>
+            Modificar datos del Profesional
+        </h1>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="form-floating">
+            <p th:if="${profesional.activo}">ACTIVO</p>
+            <p style="text-align: center; vertical-align: middle;">
+                <form th:action="@{/usuario/bajaUsuario/{id}(id=${profesional.id})}" method="get" th:if="${profesional.activo}">
+                    <button  class="btn btn-danger " type="submit" value="Baja" >Baja</button>
+                </form>
+                <form th:action="@{/usuario/altaUsuario/{id}(id=${profesional.id})}" method="get" th:if="${not profesional.activo}">
+                    <button class="btn btn-primary" type="submit" value="Alta" >Alta</button>
+                </form>
+            </p>
+        </div>
+
+
+        <form th:action="@{/profesional/modificar/__${profesional.id}__}" method="POST" enctype="multipart/form-data"
+              class="row g-3">
+
+
+            <input hidden th:value="${profesional.id}" name="id">
+            <div class="col-md-6">
+                <label for="nombre">Nombre</label>
+                <input th:value="${profesional.nombre}" type="text" id="nombre" class="form-control" name="nombre"
+                       required="true">
+            </div>
+            <div class="col-md-6">
+                <label for="apellido">Apellido</label>
+                <input th:value="${profesional.apellido}" type="text" id="apellido" class="form-control" name="apellido"
+                       required="true">
+            </div>
+            <div class="col-md-6">
+                <label for="dni">Número de DNI</label>
+                <input th:value="${profesional.DNI}" type="text" class="form-control" id="dni" name="DNI">
+            </div>
+            <div class="col-md-6">
+                <label for="fecha">Fecha de Nacimiento</label>
+                <input th:value="${profesional.fechaDeNacimiento}" type="text" id="fecha" class="form-control"
+                       name="fechaDeNacimiento">
+            </div>
+            <div class="col-md-6">
+                <label for="email">Correo electrónico</label>
+                <input th:value="${profesional.email}" type="text" id="email" class="form-control" name="email"
+                       required="true">
+            </div>
+            <div class="col-md-6">
+                <label for="username">Nombre de usuario</label>
+                <input th:value="${profesional.nombreUsuario}" type="text" id="username" class="form-control"
+                       name="nombreUsuario" required="true">
+            </div>
+            <div class="col-md-6">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" class="form-control"
+                       placeholder="Ingrese su contraseña" required="true">
+            </div>
+            <div class="col-md-6">
+                <label for="password2">Reingresar contraseña</label>
+                <input type="password" name="password2" id="password2" class="form-control"
+                       placeholder="Ingrese nuevamente su contraseña" required="true">
+            </div>
+            <div class="col-md-6">
+                <label for="matricula">Matrícula</label>
+                <input th:value="${profesional.matricula}" type="text" id="matricula" class="form-control"
+                       name="matricula">
+            </div>
+
+            <div class="col-md-6">
+                <label for="provincias">Provincia: </label>
+                <select name="provincias" id="provincias" required>
+                    <option th:each="provincia : ${provincias}"
+                            th:value="${provincia}"
+                            th:text="${provincia}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="localidad">Localidad: </label><br>
+                <input th:value="${profesional.localidad}" type="text" id="localidad" name="localidad"
+                       class="form-control"
+                       placeholder="Ingrese localidad" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="direccion">Dirección: </label>
+                <input th:value="${profesional.direccion}" type="text" id="direccion" name="direccion"
+                       class="form-control"
+                       placeholder="Ej: Calle Necochea 1232 3-A" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="precioConsulta">Precio de la consulta: </label>
+                <input th:value="${profesional.precioConsulta}" type="number" id="precioConsulta" name="precioConsulta"
+                       class="form-control"
+                       placeholder="Ingrese el valor de la consulta" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="especialidad">Especialidad médica:</label><br>
+                <select name="especialidad" id="especialidad" required>
+                    <option th:each="especialidad : ${especialidades}"
+                            th:value="${especialidad}"
+                            th:text="${especialidad}">
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<footer th:replace="layout/footer :: footer"></footer>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>
